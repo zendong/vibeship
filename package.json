@@ -1,0 +1,13 @@
+{
+  "name": "vibeship",
+  "version": "1.0.0",
+  "description": "Share your Vibe Coding creations",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "validate": "node scripts/validate.js",
+    "prebuild": "npm run validate"
+  },
+  "devDependencies": {
+    "glob": "^10.4.5"
+  }
+}

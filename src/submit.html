@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Launch Your Product - 起航号</title>
+  <meta name="description" content="Submit your product to 起航号 via AI agent">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+  <style>
+    /* Form Styles */
+    .submit-form {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: var(--space-8) 0;
+    }
+
+    .form-group {
+      margin-bottom: var(--space-6);
+    }
+
+    .form-label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: var(--space-2);
+      color: var(--color-foreground);
+    }
+
+    .form-label .required {
+      color: var(--color-destructive);
+      margin-left: 2px;
+    }
+
+    .form-input,
+    .form-textarea {
+      width: 100%;
+      padding: var(--space-3) var(--space-4);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      background: var(--color-surface);
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .form-input:focus,
+    .form-textarea:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+
+    .form-textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .form-hint {
+      font-size: 0.875rem;
+      color: var(--color-muted-foreground);
+      margin-top: var(--space-1);
+    }
+
+    .form-section {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-6);
+      margin-bottom: var(--space-6);
+    }
+
+    .form-section-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: var(--space-4);
+      padding-bottom: var(--space-3);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--space-4);
+    }
+
+    /* Custom Category Pills */
+    .category-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+    }
+
+    .category-pill {
+      padding: var(--space-2) var(--space-4);
+      border: 1px solid var(--color-border);
+      border-radius: 9999px;
+      background: var(--color-surface);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      font-size: 0.875rem;
+      font-family: var(--font-body);
+    }
+
+    .category-pill:hover {
+      border-color: var(--color-primary);
+      background: rgba(99, 102, 241, 0.05);
+    }
+
+    .category-pill.selected {
+      background: var(--color-primary);
+      color: white;
+      border-color: var(--color-primary);
+    }
+
+    .category-hidden-input {
+      display: none;
+    }
+
+    /* Tag Input */
+    .tag-input-container {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      padding: var(--space-2);
+      background: var(--color-surface);
+      min-height: 48px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      align-items: center;
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .tag-input-container:focus-within {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+
+    .tag-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      padding: var(--space-1) var(--space-3);
+      background: rgba(99, 102, 241, 0.1);
+      color: var(--color-primary);
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .tag-chip button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      color: var(--color-primary);
+      opacity: 0.7;
+    }
+
+    .tag-chip button:hover {
+      opacity: 1;
+    }
+
+    .tag-input {
+      flex: 1;
+      min-width: 120px;
+      border: none;
+      outline: none;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      background: transparent;
+      padding: var(--space-1);
+    }
+
+    /* Dynamic Contact/Link Items */
+    .dynamic-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+
+    .dynamic-item {
+      display: flex;
+      gap: var(--space-3);
+      align-items: center;
+      padding: var(--space-3);
+      background: var(--color-muted);
+      border-radius: var(--radius-sm);
+    }
+
+    .platform-dropdown {
+      position: relative;
+      width: 220px;
+      flex: 0 0 auto;
+    }
+
+    .platform-trigger {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-3);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      background: var(--color-surface);
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      color: var(--color-foreground);
+      text-align: left;
+    }
+
+    .platform-trigger img {
+      width: 16px;
+      height: 16px;
+      object-fit: contain;
+      flex: 0 0 auto;
+    }
+
+    .platform-trigger .caret {
+      margin-left: auto;
+      opacity: 0.6;
+    }
+
+    .benefit-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-3);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      background: var(--color-surface);
+      color: var(--color-foreground);
+      font-size: 0.875rem;
+      font-weight: 500;
+      flex: 0 0 auto;
+    }
+
+    .benefit-pill img {
+      width: 16px;
+      height: 16px;
+    }
+
+    .platform-menu {
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0;
+      right: 0;
+      max-height: 220px;
+      overflow-y: auto;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      background: var(--color-surface);
+      box-shadow: var(--shadow-md);
+      z-index: 30;
+      padding: 4px;
+    }
+
+    .platform-option {
+      width: 100%;
+      border: none;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: 8px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      color: var(--color-foreground);
+    }
+
+    .platform-option:hover {
+      background: var(--color-muted);
+    }
+
+    .platform-option img {
+      width: 16px;
+      height: 16px;
+      object-fit: contain;
+      flex: 0 0 auto;
+    }
+
+    .dynamic-item .url-input {
+      flex: 1;
+      padding: var(--space-2) var(--space-3);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      background: var(--color-surface);
+    }
+
+    .dynamic-item .remove-btn {
+      padding: var(--space-2);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--color-muted-foreground);
+      border-radius: var(--radius-sm);
+      transition: all var(--transition-fast);
+    }
+
+    .dynamic-item .remove-btn:hover {
+      background: rgba(239, 68, 68, 0.1);
+      color: var(--color-destructive);
+    }
+
+    .add-item-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-4);
+      background: none;
+      border: 1px dashed var(--color-border);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      color: var(--color-muted-foreground);
+      font-size: 0.875rem;
+      font-family: var(--font-body);
+      transition: all var(--transition-fast);
+      margin-top: var(--space-2);
+    }
+
+    .add-item-btn:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+      background: rgba(99, 102, 241, 0.05);
+    }
+
+    /* Platform Icons */
+    .platform-icon {
+      width: 20px;
+      height: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .platform-icon img,
+    .platform-icon svg {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    @media (max-width: 768px) {
+      .dynamic-item {
+        flex-wrap: wrap;
+      }
+
+      .platform-dropdown {
+        width: 100%;
+      }
+
+      .benefit-pill {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .dynamic-item .url-input {
+        min-width: 100%;
+      }
+    }
+
+    .copy-ai-btn {
+      width: 100%;
+      padding: var(--space-4) var(--space-6);
+      background: var(--color-primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background var(--transition-fast);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+    }
+
+    .copy-ai-btn:hover {
+      background: var(--color-secondary);
+    }
+
+    .copy-ai-btn:disabled {
+      background: var(--color-muted);
+      cursor: not-allowed;
+    }
+
+    .skill-link {
+      text-align: center;
+      margin-top: var(--space-6);
+      color: var(--color-muted-foreground);
+    }
+
+    .skill-link a {
+      color: var(--color-primary);
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="/" class="nav-logo">
+        <img src="/logo.svg" alt="起航号">
+        <span data-i18n="nav_logo">起航号</span>
+      </a>
+      <div class="nav-links">
+        <a href="/" class="nav-link" data-i18n="nav_browse">发现</a>
+        <a href="/submit.html" class="nav-link active" data-i18n="nav_submit">发布</a>
+        <button id="langToggle" class="nav-link lang-toggle">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+          <span data-i18n="nav_lang_toggle">中文</span>
+        </button>
+        <a href="https://github.com/zendong/vibeship" class="nav-link" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <!-- Hero Section -->
+    <section class="hero" style="padding-bottom: var(--space-4);">
+      <div class="container">
+        <h1 data-i18n="submit_hero_title">指挥 AI，上架你的产品</h1>
+        <p class="hero-tagline" data-i18n="submit_hero_subtitle">填写产品信息，复制提示词给 AI，让它帮你完成剩下的工作</p>
+      </div>
+    </section>
+
+    <!-- Submit Form -->
+    <form class="submit-form" id="submitForm">
+
+      <!-- Basic Info -->
+      <div class="form-section">
+        <h3 class="form-section-title" data-i18n="basic_info">基本信息</h3>
+
+        <div class="form-group">
+          <label class="form-label" data-i18n="field_name">产品名称 <span class="required">*</span></label>
+          <input type="text" class="form-input" id="productName" data-i18n-placeholder="placeholder_name" placeholder="输入产品名称" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" data-i18n="field_tagline">一句话介绍 <span class="required">*</span></label>
+          <input type="text" class="form-input" id="productTagline" data-i18n-placeholder="placeholder_tagline" placeholder="一句话描述（最多50字）" maxlength="50" required>
+          <p class="form-hint" data-i18n="hint_tagline">简短有力的产品介绍，让用户一眼就知道这是什么</p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" data-i18n="field_description">详细介绍 <span class="required">*</span></label>
+          <textarea class="form-textarea" id="productDescription" data-i18n-placeholder="placeholder_description" placeholder="详细介绍产品的功能、特点、使用方法等，支持 Markdown 格式" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" data-i18n="field_category">分类 <span class="required">*</span></label>
+          <input type="hidden" id="productCategory" name="productCategory" value="">
+          <div class="category-pills" id="categoryPills">
+            <button type="button" class="category-pill" data-value="AI工具" data-i18n="cat_ai">AI工具</button>
+            <button type="button" class="category-pill" data-value="效率工具" data-i18n="cat_efficiency">效率工具</button>
+            <button type="button" class="category-pill" data-value="开发框架" data-i18n="cat_framework">开发框架</button>
+            <button type="button" class="category-pill" data-value="Chrome扩展" data-i18n="cat_chrome">Chrome扩展</button>
+            <button type="button" class="category-pill" data-value="移动应用" data-i18n="cat_mobile">移动应用</button>
+            <button type="button" class="category-pill" data-value="SaaS" data-i18n="cat_saas">SaaS</button>
+            <button type="button" class="category-pill" data-value="内容创作" data-i18n="cat_content">内容创作</button>
+            <button type="button" class="category-pill" data-value="教育学习" data-i18n="cat_education">教育学习</button>
+            <button type="button" class="category-pill" data-value="设计工具" data-i18n="cat_design">设计工具</button>
+            <button type="button" class="category-pill" data-value="数据分析" data-i18n="cat_data">数据分析</button>
+            <button type="button" class="category-pill" data-value="开源项目" data-i18n="cat_opensource">开源项目</button>
+            <button type="button" class="category-pill" data-value="其他" data-i18n="cat_other">其他</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" data-i18n="field_tags">标签</label>
+          <div class="tag-input-container" id="tagContainer">
+            <input type="text" class="tag-input" id="tagInput" data-i18n-placeholder="placeholder_tags" placeholder="例如：AI, 自动化（回车/逗号/换行添加）">
+          </div>
+          <p class="form-hint" data-i18n="hint_tags">按 Enter / 逗号 / 换行添加标签，最多 5 个</p>
+        </div>
+      </div>
+
+      <!-- Product Links -->
+      <div class="form-section">
+        <h3 class="form-section-title" data-i18n="product_links">产品链接</h3>
+        <p class="form-hint" data-i18n="hint_links" style="margin-bottom: var(--space-4);">按平台逐条添加产品链接，先选平台再填链接</p>
+        <div class="dynamic-list" id="productLinkList"></div>
+        <button type="button" class="add-item-btn" id="addProductLinkBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          <span data-i18n="add_product_link">添加产品链接</span>
+        </button>
+      </div>
+
+      <!-- Author Info -->
+      <div class="form-section">
+        <h3 class="form-section-title" data-i18n="author_info">作者信息</h3>
+
+        <div class="form-group">
+          <label class="form-label" data-i18n="field_author_name">作者名称 <span class="required">*</span></label>
+          <input type="text" class="form-input" id="authorName" data-i18n-placeholder="placeholder_author_name" placeholder="你的名字或团队名" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" data-i18n="author_contacts">作者联系方式</label>
+          <p class="form-hint" data-i18n="hint_contact" style="margin-bottom: var(--space-4);">至少填写一种联系方式，这里是唯一的联系方式入口</p>
+          <div class="dynamic-list" id="authorContactList"></div>
+          <button type="button" class="add-item-btn" id="addAuthorContactBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            <span data-i18n="add_author_contact">添加作者联系方式</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Benefits -->
+      <div class="form-section">
+        <h3 class="form-section-title" data-i18n="benefits_info">福利</h3>
+        <p class="form-hint" data-i18n="hint_benefits" style="margin-bottom: var(--space-4);">可选，填写优惠码、首发折扣或其他权益说明</p>
+        <div class="dynamic-list" id="benefitList"></div>
+        <button type="button" class="add-item-btn" id="addBenefitBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          <span data-i18n="add_benefit">添加福利</span>
+        </button>
+      </div>
+
+      <!-- Screenshots Note -->
+      <div class="form-section" style="background: var(--color-muted);">
+        <h3 class="form-section-title" data-i18n="screenshots_info">产品截图</h3>
+        <p class="form-hint" data-i18n="hint_screenshots">截图将在你提交给 AI 后指导你添加。建议准备 16:9 比例的产品截图。</p>
+      </div>
+
+      <!-- Copy for AI Button -->
+      <button type="button" id="copyAiBtn" class="copy-ai-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+        </svg>
+        <span data-i18n="copy_for_ai">复制后给 AI</span>
+      </button>
+
+      <p class="skill-link">
+        <span data-i18n="need_help">需要帮助？查看</span>
+        <a href="https://github.com/zendong/vibeship/blob/main/skills/submit-to-vibeship/SKILL.md" target="_blank" data-i18n="skill_doc">Skill 文档</a>
+      </p>
+    </form>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 起航号. <span data-i18n="footer_copyright">用 Vibe Coding 构建。</span></p>
+      <div class="footer-links">
+        <a href="/" data-i18n="nav_browse">发现</a>
+        <a href="/submit.html" data-i18n="nav_submit">发布</a>
+        <a href="https://github.com/zendong/vibeship" target="_blank" rel="noopener" data-i18n="footer_github">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/i18n.js"></script>
+  <script src="/js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      window.i18n.init();
+      const categoryPills = document.getElementById('categoryPills');
+      const categoryInput = document.getElementById('productCategory');
+      const langToggleBtn = document.getElementById('langToggle');
+      const tagContainer = document.getElementById('tagContainer');
+      const tagInput = document.getElementById('tagInput');
+      const authorContactList = document.getElementById('authorContactList');
+      const benefitList = document.getElementById('benefitList');
+      const productLinkList = document.getElementById('productLinkList');
+
+      const platformConfig = {
+        website: { icon: '/icons/website.svg', zh: '官网', en: 'Website', example: 'https://your-product.com' },
+        github: { icon: '/icons/github.svg', zh: 'GitHub', en: 'GitHub', example: 'https://github.com/username' },
+        appstore: { icon: '/icons/appstore.svg', zh: 'App Store', en: 'App Store', example: 'https://apps.apple.com/app/id123456789' },
+        googleplay: { icon: '/icons/googleplay.svg', zh: 'Google Play', en: 'Google Play', example: 'https://play.google.com/store/apps/details?id=com.example.app' },
+        chromewebstore: { icon: '/icons/chromewebstore.svg', zh: 'Chrome 商店', en: 'Chrome Web Store', example: 'https://chromewebstore.google.com/detail/your-extension-id' },
+        windows: { icon: '/icons/windows.svg', zh: 'Windows', en: 'Windows', example: 'https://example.com/download/windows' },
+        mac: { icon: '/icons/mac.svg', zh: 'Mac', en: 'Mac', example: 'https://example.com/download/mac' },
+        linux: { icon: '/icons/linux.svg', zh: 'Linux', en: 'Linux', example: 'https://example.com/download/linux' },
+        twitter: { icon: '/icons/twitter.svg', zh: 'Twitter / X', en: 'Twitter / X', example: 'https://x.com/username' },
+        email: { icon: '/icons/email.svg', zh: 'Email', en: 'Email', example: 'founder@example.com' },
+        wechat: { icon: '/icons/wechat.svg', zh: '微信', en: 'WeChat', example: 'vibeship_official' },
+        xiaohongshu: { icon: '/icons/xiaohongshu.svg', zh: '小红书', en: 'Xiaohongshu', example: 'https://www.xiaohongshu.com/user/profile/xxxx' },
+        zhihu: { icon: '/icons/zhihu.svg', zh: '知乎', en: 'Zhihu', example: 'https://www.zhihu.com/people/username' },
+        bilibili: { icon: '/icons/bilibili.svg', zh: 'B站', en: 'Bilibili', example: 'https://space.bilibili.com/123456' },
+        juejin: { icon: '/icons/juejin.svg', zh: '掘金', en: 'Juejin', example: 'https://juejin.cn/user/xxxx' },
+        weibo: { icon: '/icons/weibo.svg', zh: '微博', en: 'Weibo', example: 'https://weibo.com/username' },
+        csdn: { icon: '/icons/csdn.svg', zh: 'CSDN', en: 'CSDN', example: 'https://blog.csdn.net/username' },
+        douyin: { icon: '/icons/douyin.svg', zh: '抖音', en: 'Douyin', example: 'https://www.douyin.com/user/xxxx' }
+      };
+
+      const linkPlatforms = ['website', 'github', 'appstore', 'googleplay', 'chromewebstore', 'windows', 'mac', 'linux'];
+      const contactPlatforms = ['github', 'twitter', 'email', 'wechat', 'xiaohongshu', 'zhihu', 'bilibili', 'juejin', 'weibo', 'csdn', 'douyin'];
+
+      const platformLabelMap = {
+        appstore: 'App Store',
+        googleplay: 'Google Play',
+        chromewebstore: 'Chrome Web Store',
+        website: 'Website',
+        github: 'GitHub',
+        windows: 'Windows',
+        mac: 'Mac',
+        linux: 'Linux',
+        twitter: 'Twitter / X',
+        email: 'Email',
+        wechat: '微信',
+        xiaohongshu: '小红书',
+        zhihu: '知乎',
+        bilibili: 'B站',
+        juejin: '掘金',
+        weibo: '微博',
+        csdn: 'CSDN',
+        douyin: '抖音'
+      };
+
+      const categoryI18nKeyMap = {
+        'AI工具': 'cat_ai',
+        '效率工具': 'cat_efficiency',
+        '开发框架': 'cat_framework',
+        'Chrome扩展': 'cat_chrome',
+        '移动应用': 'cat_mobile',
+        'SaaS': 'cat_saas',
+        '内容创作': 'cat_content',
+        '教育学习': 'cat_education',
+        '设计工具': 'cat_design',
+        '数据分析': 'cat_data',
+        '开源项目': 'cat_opensource',
+        '其他': 'cat_other'
+      };
+
+      let tags = [];
+
+      function getLang() {
+        return window.i18n.getLang() === 'zh' ? 'zh' : 'en';
+      }
+
+      function getPlatformName(key) {
+        const config = platformConfig[key];
+        if (!config) return key;
+        return getLang() === 'zh' ? config.zh : config.en;
+      }
+
+      function addTag(rawTag) {
+        const clean = rawTag.trim();
+        if (!clean || tags.includes(clean) || tags.length >= 5) return;
+        tags.push(clean);
+      }
+
+      function parseTagText(text) {
+        return text
+          .split(/[\n,]+/)
+          .map((item) => item.trim())
+          .filter(Boolean);
+      }
+
+      function consumeTagInput() {
+        parseTagText(tagInput.value).forEach(addTag);
+        renderTags();
+        tagInput.value = '';
+      }
+
+      function renderTags() {
+        tagContainer.querySelectorAll('.tag-chip').forEach((chip) => chip.remove());
+        tags.forEach((tag, index) => {
+          const chip = document.createElement('span');
+          chip.className = 'tag-chip';
+          chip.innerHTML = `${tag}<button type="button" data-index="${index}" aria-label="remove tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>`;
+          tagContainer.insertBefore(chip, tagInput);
+        });
+      }
+
+      function optionsHtml(keys) {
+        return keys.map((key) => {
+          const conf = platformConfig[key];
+          const name = conf ? (getLang() === 'zh' ? conf.zh : conf.en) : key;
+          const icon = conf ? conf.icon : '/icons/default.svg';
+          return `<button type="button" class="platform-option" data-value="${key}"><img src="${icon}" alt="${name}"><span>${name}</span></button>`;
+        }).join('');
+      }
+
+      function updatePlatformItem(item) {
+        const valueInput = item.querySelector('.platform-select');
+        const trigger = item.querySelector('.platform-trigger');
+        const triggerIcon = trigger.querySelector('img');
+        const triggerText = trigger.querySelector('.platform-trigger-text');
+        const input = item.querySelector('.platform-value');
+        const key = valueInput.value;
+        const conf = platformConfig[key] || {};
+        triggerIcon.src = conf.icon || '/icons/default.svg';
+        triggerIcon.alt = getPlatformName(key);
+        triggerText.textContent = getPlatformName(key);
+
+        if (input.type === 'url' || input.dataset.kind === 'link') {
+          input.placeholder = conf.example || 'https://example.com';
+        } else {
+          const isZh = getLang() === 'zh';
+          input.placeholder = conf.example || (isZh ? '例如：your-id' : 'e.g. your-id');
+        }
+      }
+
+      function createDynamicItem(kind, presetKey) {
+        const keys = kind === 'link' ? linkPlatforms : contactPlatforms;
+        const defaultKey = presetKey || (kind === 'link' ? 'website' : 'github');
+        const inputType = kind === 'link' ? 'url' : 'text';
+        const item = document.createElement('div');
+        item.className = 'dynamic-item';
+        item.dataset.kind = kind;
+        item.innerHTML = `
+          <div class="platform-dropdown">
+            <button type="button" class="platform-trigger" aria-haspopup="listbox" aria-expanded="false">
+              <img src="/icons/default.svg" alt="platform">
+              <span class="platform-trigger-text"></span>
+              <span class="caret">▾</span>
+            </button>
+            <div class="platform-menu" hidden>
+              ${optionsHtml(keys)}
+            </div>
+            <input type="hidden" class="platform-select" value="">
+          </div>
+          <input type="${inputType}" class="url-input platform-value" data-kind="${kind}" placeholder="">
+          <button type="button" class="remove-btn" aria-label="remove item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        `;
+
+        const valueInput = item.querySelector('.platform-select');
+        const trigger = item.querySelector('.platform-trigger');
+        const menu = item.querySelector('.platform-menu');
+        valueInput.value = keys.includes(defaultKey) ? defaultKey : keys[0];
+
+        trigger.addEventListener('click', () => {
+          const expanded = trigger.getAttribute('aria-expanded') === 'true';
+          document.querySelectorAll('.platform-menu').forEach((menuEl) => {
+            menuEl.hidden = true;
+          });
+          document.querySelectorAll('.platform-trigger').forEach((triggerEl) => {
+            triggerEl.setAttribute('aria-expanded', 'false');
+          });
+          if (!expanded) {
+            menu.hidden = false;
+            trigger.setAttribute('aria-expanded', 'true');
+          }
+        });
+
+        menu.querySelectorAll('.platform-option').forEach((opt) => {
+          opt.addEventListener('click', () => {
+            valueInput.value = opt.dataset.value;
+            menu.hidden = true;
+            trigger.setAttribute('aria-expanded', 'false');
+            updatePlatformItem(item);
+          });
+        });
+
+        item.querySelector('.remove-btn').addEventListener('click', () => {
+          const list = item.parentElement;
+          item.remove();
+          if (list && list.children.length === 0) {
+            list.appendChild(createDynamicItem(kind));
+          }
+        });
+
+        updatePlatformItem(item);
+        return item;
+      }
+
+      function createBenefitItem() {
+        const item = document.createElement('div');
+        item.className = 'dynamic-item';
+        item.dataset.kind = 'benefit';
+        item.innerHTML = `
+          <span class="benefit-pill"><img src="/icons/gift.svg" alt="benefit"><span data-i18n="benefits_info">福利</span></span>
+          <input type="text" class="url-input benefit-code" data-i18n-placeholder="placeholder_benefit_code" placeholder="例如：LAUNCH20">
+          <input type="text" class="url-input benefit-description" data-i18n-placeholder="placeholder_benefit_description" placeholder="例如：首发用户 20% off">
+          <button type="button" class="remove-btn" aria-label="remove item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        `;
+
+        item.querySelector('.remove-btn').addEventListener('click', () => {
+          const list = item.parentElement;
+          item.remove();
+          if (list && list.children.length === 0) {
+            list.appendChild(createBenefitItem());
+          }
+        });
+
+        return item;
+      }
+
+      function appendDynamicItem(list, kind, presetKey) {
+        list.appendChild(createDynamicItem(kind, presetKey));
+      }
+
+      function refreshDynamicItems() {
+        [productLinkList, authorContactList].forEach((list) => {
+          Array.from(list.children).forEach((item) => {
+            const kind = item.dataset.kind;
+            const keys = kind === 'link' ? linkPlatforms : contactPlatforms;
+            const valueInput = item.querySelector('.platform-select');
+            const current = valueInput.value;
+            const menu = item.querySelector('.platform-menu');
+            menu.innerHTML = optionsHtml(keys);
+            valueInput.value = keys.includes(current) ? current : keys[0];
+            menu.querySelectorAll('.platform-option').forEach((opt) => {
+              opt.addEventListener('click', () => {
+                valueInput.value = opt.dataset.value;
+                menu.hidden = true;
+                item.querySelector('.platform-trigger').setAttribute('aria-expanded', 'false');
+                updatePlatformItem(item);
+              });
+            });
+            updatePlatformItem(item);
+          });
+        });
+      }
+
+      function collectDynamicEntries(list) {
+        const entries = [];
+        list.querySelectorAll('.dynamic-item').forEach((item) => {
+          const kind = item.dataset.kind;
+          if (kind === 'benefit') {
+            const code = item.querySelector('.benefit-code').value.trim();
+            const description = item.querySelector('.benefit-description').value.trim();
+            if (!code && !description) return;
+            entries.push({ code, description });
+            return;
+          }
+          const key = item.querySelector('.platform-select').value;
+          const value = item.querySelector('.platform-value').value.trim();
+          if (!value) return;
+          entries.push({ key, value });
+        });
+        return entries;
+      }
+
+      function formatCategoryForPrompt(categoryValue) {
+        if (!categoryValue) return '';
+        const i18nKey = categoryI18nKeyMap[categoryValue];
+        if (!i18nKey) return categoryValue;
+        const displayLabel = window.i18n.t(i18nKey);
+        if (window.i18n.getLang() === 'zh') {
+          return categoryValue;
+        }
+        if (displayLabel && displayLabel !== categoryValue) {
+          return `${displayLabel} (schema: ${categoryValue})`;
+        }
+        return `${categoryValue} (schema value)`;
+      }
+
+      categoryPills.addEventListener('click', (e) => {
+        if (!e.target.classList.contains('category-pill')) return;
+        categoryPills.querySelectorAll('.category-pill').forEach((pill) => pill.classList.remove('selected'));
+        e.target.classList.add('selected');
+        categoryInput.value = e.target.dataset.value;
+      });
+
+      tagInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ',') {
+          e.preventDefault();
+          consumeTagInput();
+          return;
+        }
+        if (e.key === 'Backspace' && !tagInput.value && tags.length > 0) {
+          tags.pop();
+          renderTags();
+        }
+      });
+
+      tagInput.addEventListener('blur', () => {
+        if (tagInput.value.trim()) consumeTagInput();
+      });
+
+      tagInput.addEventListener('paste', (e) => {
+        const pasted = (e.clipboardData || window.clipboardData).getData('text');
+        if (!/[\n,]/.test(pasted)) return;
+        e.preventDefault();
+        parseTagText(pasted).forEach(addTag);
+        renderTags();
+      });
+
+      tagContainer.addEventListener('click', (e) => {
+        const removeBtn = e.target.closest('.tag-chip button');
+        if (!removeBtn) return;
+        const index = Number(removeBtn.dataset.index);
+        if (!Number.isNaN(index)) {
+          tags.splice(index, 1);
+          renderTags();
+        }
+      });
+
+      appendDynamicItem(productLinkList, 'link', 'website');
+      appendDynamicItem(authorContactList, 'author', 'github');
+      benefitList.appendChild(createBenefitItem());
+
+      document.getElementById('addProductLinkBtn').addEventListener('click', () => appendDynamicItem(productLinkList, 'link'));
+      document.getElementById('addAuthorContactBtn').addEventListener('click', () => appendDynamicItem(authorContactList, 'author'));
+      document.getElementById('addBenefitBtn').addEventListener('click', () => benefitList.appendChild(createBenefitItem()));
+
+      langToggleBtn.addEventListener('click', () => {
+        window.i18n.toggle();
+        refreshDynamicItems();
+      });
+
+      document.addEventListener('click', (e) => {
+        if (e.target.closest('.platform-dropdown')) return;
+        document.querySelectorAll('.platform-menu').forEach((menu) => {
+          menu.hidden = true;
+        });
+        document.querySelectorAll('.platform-trigger').forEach((trigger) => {
+          trigger.setAttribute('aria-expanded', 'false');
+        });
+      });
+
+      // Copy for AI button
+      const copyAiBtn = document.getElementById('copyAiBtn');
+      copyAiBtn.addEventListener('click', () => {
+        const prompt = generatePrompt();
+        navigator.clipboard.writeText(prompt).then(() => {
+          const span = copyAiBtn.querySelector('span');
+          const original = span.textContent;
+          span.textContent = window.i18n.getLang() === 'zh' ? '已复制!' : 'Copied!';
+          copyAiBtn.style.background = 'var(--color-accent)';
+          setTimeout(() => {
+            span.textContent = original;
+            copyAiBtn.style.background = '';
+          }, 2000);
+        });
+      });
+
+      // Generate prompt from form data
+      function generatePrompt() {
+        const isZh = window.i18n.getLang() === 'zh';
+
+        const name = document.getElementById('productName').value.trim();
+        const tagline = document.getElementById('productTagline').value.trim();
+        const description = document.getElementById('productDescription').value.trim();
+        const category = categoryInput.value.trim();
+        const categoryForPrompt = formatCategoryForPrompt(category);
+        const tagsValue = tags.join(', ');
+
+        const links = collectDynamicEntries(productLinkList);
+        const authorContacts = collectDynamicEntries(authorContactList);
+        const benefits = collectDynamicEntries(benefitList);
+        const authorName = document.getElementById('authorName').value.trim();
+
+        const fallback = isZh
+          ? {
+            name: '示例：VibeShip Copilot',
+            tagline: '示例：把产品资料整理为可提交 PR 的发布信息',
+            description: '示例：支持自动生成 product.json、整理截图并提供上架步骤。',
+            category: '示例：AI工具（可选：效率工具、开发框架、Chrome扩展、移动应用、SaaS、内容创作、教育学习、设计工具、数据分析、开源项目、其他）',
+            tags: '示例：AI, 自动化, 上架',
+            author: '示例：Evertrain 团队'
+          }
+          : {
+            name: 'Example: VibeShip Copilot',
+            tagline: 'Example: Turn product notes into PR-ready launch metadata',
+            description: 'Example: Auto-generate product.json, organize screenshots, and guide submission.',
+            category: 'Example: AI Tools (schema value: AI工具). Options: AI工具, 效率工具, 开发框架, Chrome扩展, 移动应用, SaaS, 内容创作, 教育学习, 设计工具, 数据分析, 开源项目, 其他',
+            tags: 'Example: AI, Automation, Launch',
+            author: 'Example: Evertrain Team'
+          };
+
+        if (isZh) {
+          let prompt = `帮我提交产品到 VibeShip。以下是我的产品信息：
+
+## 产品名称
+${name || fallback.name}
+
+## 一句话介绍
+${tagline || fallback.tagline}
+
+## 详细介绍
+${description || fallback.description}
+
+## 分类
+${categoryForPrompt || fallback.category}
+
+## 标签
+${tagsValue || fallback.tags}`;
+
+          if (links.length > 0) {
+            prompt += `\n\n## 产品链接`;
+            links.forEach(({ key, value }) => {
+              prompt += `\n- ${platformLabelMap[key] || key}: ${value}`;
+            });
+          } else {
+            prompt += `\n\n## 产品链接（可补充）
+- 官网: https://your-product.com
+- GitHub: https://github.com/your-org/your-repo`;
+          }
+
+          prompt += `\n\n## 作者
+- 名称: ${authorName || fallback.author}`;
+
+          if (authorContacts.length > 0) {
+            prompt += `\n## 联系方式`;
+            authorContacts.forEach((c) => {
+              prompt += `\n- ${platformLabelMap[c.key] || c.key}: ${c.value}`;
+            });
+          } else {
+            prompt += `\n## 联系方式（至少一种，示例）
+- GitHub: https://github.com/yourname`;
+          }
+
+          if (benefits.length > 0) {
+            prompt += `\n\n## 福利`;
+            benefits.forEach((b) => {
+              prompt += `\n- ${b.code || '[未填写福利码]'}: ${b.description || '[未填写说明]'}`;
+            });
+          } else {
+            prompt += `\n\n## 福利（可选，示例）
+- LAUNCH20: 首发用户 20% off
+- EARLYBIRD: 早鸟用户享受 30 天免费升级`;
+          }
+
+          prompt += `\n\n请帮我创建 product.json 文件并指导我完成提交流程。首先阅读 skill 指南：https://github.com/zendong/vibeship/blob/main/skills/submit-to-vibeship/SKILL.md`;
+
+          return prompt;
+        } else {
+          let prompt = `Help me submit my product to VibeShip. Here is my product information:
+
+## Product Name
+${name || fallback.name}
+
+## Tagline
+${tagline || fallback.tagline}
+
+## Description
+${description || fallback.description}
+
+## Category
+${categoryForPrompt || fallback.category}
+
+## Tags
+${tagsValue || fallback.tags}`;
+
+          if (links.length > 0) {
+            prompt += `\n\n## Product Links`;
+            links.forEach(({ key, value }) => {
+              prompt += `\n- ${platformLabelMap[key] || key}: ${value}`;
+            });
+          } else {
+            prompt += `\n\n## Product Links (optional examples)
+- Website: https://your-product.com
+- GitHub: https://github.com/your-org/your-repo`;
+          }
+
+          prompt += `\n\n## Author
+- Name: ${authorName || fallback.author}`;
+
+          if (authorContacts.length > 0) {
+            prompt += `\n## Contact`;
+            authorContacts.forEach((c) => {
+              prompt += `\n- ${platformLabelMap[c.key] || c.key}: ${c.value}`;
+            });
+          } else {
+            prompt += `\n## Contact (at least one, examples)
+- GitHub: https://github.com/yourname`;
+          }
+
+          if (benefits.length > 0) {
+            prompt += `\n\n## Benefits`;
+            benefits.forEach((b) => {
+              prompt += `\n- ${b.code || '[Benefit code]'}: ${b.description || '[Description]'}`;
+            });
+          } else {
+            prompt += `\n\n## Benefits (optional, examples)
+- LAUNCH20: 20% off for launch users
+- EARLYBIRD: 30-day free upgrade for early adopters`;
+          }
+
+          prompt += `\n\nPlease help me create the product.json file and guide me through the submission process. First read the skill guide: https://github.com/zendong/vibeship/blob/main/skills/submit-to-vibeship/SKILL.md`;
+
+          return prompt;
+        }
+      }
+    });
+  </script>
+</body>
+</html>

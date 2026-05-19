@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Background circle - light indigo tint -->
+  <circle cx="100" cy="100" r="90" fill="#F5F3FF"/>
+
+  <!-- Wave pattern at bottom - muted indigo -->
+  <path d="M30 135 Q50 125 70 135 T110 135 T150 135 T170 135 L170 160 Q150 150 130 160 T90 160 T50 160 T30 160 Z" fill="#E0E7FF"/>
+
+  <!-- Ship hull - primary indigo -->
+  <path d="M45 115 Q55 100 75 105 L125 105 Q145 100 155 115 L150 135 Q130 130 100 130 Q70 130 50 135 Z" fill="#6366F1"/>
+
+  <!-- Ship mast - secondary indigo -->
+  <path d="M100 55 L100 110" stroke="#818CF8" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Sail - primary indigo -->
+  <path d="M100 60 Q120 75 100 95 Q80 75 100 60" fill="#6366F1"/>
+
+  <!-- Flag on top - accent emerald -->
+  <path d="M100 55 L125 62 L100 70 Z" fill="#059669"/>
+
+  <!-- Small sparkles - accent emerald -->
+  <circle cx="50" cy="75" r="4" fill="#059669"/>
+  <circle cx="150" cy="80" r="3" fill="#059669"/>
+  <circle cx="155" cy="100" r="2.5" fill="#059669"/>
+
+  <!-- "V" letter subtly integrated - muted -->
+  <path d="M65 145 L85 165 L100 150 L115 165 L135 145" fill="none" stroke="#64748B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

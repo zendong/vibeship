@@ -1,0 +1,140 @@
+name: Validate Product Submission
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'products/**'
+      - '.github/workflows/validate-product.yml'
+      - 'scripts/validate.js'
+
+permissions:
+  contents: read
+
+jobs:
+  validate-pr:
+    name: Validate PR Changes
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Enforce PR file constraints
+        id: pr-guard
+        run: |
+          git diff --name-status ${{ github.event.pull_request.base.sha }} HEAD > changed_files.txt
+          node <<'NODE'
+          const fs = require('fs');
+
+          const changed = fs
+            .readFileSync('changed_files.txt', 'utf-8')
+            .split('\n')
+            .map((line) => line.trim())
+            .filter(Boolean)
+            .map((line) => line.split('\t'));
+
+          const allowedAssetExt = new Set(['.png', '.jpg', '.jpeg', '.webp', '.gif', '.svg', '.avif']);
+          const productDirs = new Set();
+          const invalidFiles = [];
+          let hasProductJson = false;
+
+          for (const parts of changed) {
+            const status = parts[0] || '';
+            const file = parts[parts.length - 1] || '';
+
+            if (status.startsWith('D') || status.startsWith('R')) {
+              invalidFiles.push(`${file} (${status} not allowed)`);
+              continue;
+            }
+
+            if (!status.startsWith('A') && !status.startsWith('M')) {
+              invalidFiles.push(`${file} (${status} not allowed)`);
+              continue;
+            }
+
+            if (!file.startsWith('products/')) {
+              invalidFiles.push(`${file} (outside products/)`);
+              continue;
+            }
+
+            const segments = file.split('/');
+            if (segments.length < 3 || !segments[1]) {
+              invalidFiles.push(`${file} (invalid product path)`);
+              continue;
+            }
+
+            const productDir = segments[1];
+            productDirs.add(productDir);
+            const relativePath = segments.slice(2).join('/');
+            const lower = relativePath.toLowerCase();
+
+            if (!relativePath || relativePath.endsWith('/')) {
+              invalidFiles.push(`${file} (invalid file)`);
+              continue;
+            }
+
+            if (relativePath === 'product.json') {
+              hasProductJson = true;
+              continue;
+            }
+
+            const hasAllowedAssetExt = [...allowedAssetExt].some((ext) => lower.endsWith(ext));
+            if (!hasAllowedAssetExt) {
+              invalidFiles.push(`${file} (unsupported file type)`);
+            }
+          }
+
+          if (productDirs.size === 0) {
+            console.error('ERROR: No product files changed.');
+            process.exit(1);
+          }
+
+          if (productDirs.size > 1) {
+            console.error(`ERROR: Multiple product directories changed (${[...productDirs].join(', ')}). Only one product per PR is allowed.`);
+            process.exit(1);
+          }
+
+          if (!hasProductJson) {
+            console.error('ERROR: product.json must be included in the PR.');
+            process.exit(1);
+          }
+
+          if (invalidFiles.length > 0) {
+            console.error('ERROR: PR contains invalid file changes:');
+            for (const file of invalidFiles) {
+              console.error(`  - ${file}`);
+            }
+            process.exit(1);
+          }
+
+          const productDir = [...productDirs][0];
+          console.log(`Validated file scope for product directory: ${productDir}`);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `product_dir=${productDir}\n`);
+          NODE
+
+      - name: Validate changed products
+        run: |
+          PRODUCT_DIR="${{ steps.pr-guard.outputs.product_dir }}"
+          if [ -z "$PRODUCT_DIR" ]; then
+            echo "ERROR: product_dir output missing"
+            exit 1
+          fi
+          node scripts/validate.js "$PRODUCT_DIR"
+
+      - name: Summary
+        run: |
+          echo "## Validation Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Changed product: ${{ steps.pr-guard.outputs.product_dir }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✓ All validation checks passed" >> $GITHUB_STEP_SUMMARY

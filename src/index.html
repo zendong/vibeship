@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VibeShip - Share Your Vibe Coding Creations</title>
+  <meta name="description" content="A platform for developers to share products built with Vibe Coding and AI assistance.">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="/" class="nav-logo">
+        <img src="/logo.svg" alt="VibeShip">
+        <span data-i18n="nav_logo">VibeShip</span>
+      </a>
+      <div class="nav-links">
+        <a href="/" class="nav-link active" data-i18n="nav_browse">Browse</a>
+        <a href="/submit.html" class="nav-link" data-i18n="nav_submit">Submit</a>
+        <button id="langToggle" class="nav-link lang-toggle">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+          <span data-i18n="nav_lang_toggle">EN</span>
+        </button>
+        <a href="https://github.com/zendong/vibeship" class="nav-link" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <h1 data-i18n="hero_title">Share Your Vibe Coding Creations</h1>
+      <p class="hero-tagline" data-i18n="hero_tagline">A platform for developers to showcase products built with AI assistance</p>
+
+      <!-- Search -->
+      <div class="search-container">
+        <div class="search-wrapper">
+          <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="M21 21l-4.35-4.35"></path>
+          </svg>
+          <input type="search" class="search-input" id="searchInput" data-i18n="search_placeholder" placeholder="Search products...">
+        </div>
+      </div>
+
+      <!-- Submit Prompt -->
+      <div class="submit-prompt">
+        <div class="submit-prompt-content">
+          <div class="submit-prompt-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 5v14M5 12h14"/>
+            </svg>
+          </div>
+          <div class="submit-prompt-text">
+            <span class="submit-prompt-title" data-i18n="submit_prompt_title">Share Your Creation</span>
+            <span class="submit-prompt-desc" data-i18n="submit_prompt_desc">Built with Vibe Coding? Submit your product in minutes.</span>
+          </div>
+          <a href="/submit.html" class="submit-prompt-btn" data-i18n="submit_prompt_btn">Launch Now</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category Filter -->
+  <div class="container">
+    <div class="category-filter" id="categoryFilter">
+      <button class="category-pill active" data-category="all" data-i18n="cat_all">All</button>
+      <button class="category-pill" data-category="AI工具" data-i18n="cat_ai">AI工具</button>
+      <button class="category-pill" data-category="效率工具" data-i18n="cat_efficiency">效率工具</button>
+      <button class="category-pill" data-category="开发框架" data-i18n="cat_framework">开发框架</button>
+      <button class="category-pill" data-category="Chrome扩展" data-i18n="cat_chrome">Chrome扩展</button>
+      <button class="category-pill" data-category="移动应用" data-i18n="cat_mobile">移动应用</button>
+      <button class="category-pill" data-category="SaaS" data-i18n="cat_saas">SaaS</button>
+      <button class="category-pill" data-category="内容创作" data-i18n="cat_content">内容创作</button>
+      <button class="category-pill" data-category="教育学习" data-i18n="cat_education">教育学习</button>
+      <button class="category-pill" data-category="设计工具" data-i18n="cat_design">设计工具</button>
+      <button class="category-pill" data-category="数据分析" data-i18n="cat_data">数据分析</button>
+      <button class="category-pill" data-category="开源项目" data-i18n="cat_opensource">开源项目</button>
+      <button class="category-pill" data-category="其他" data-i18n="cat_other">其他</button>
+    </div>
+  </div>
+
+  <!-- Product Grid -->
+  <main class="container">
+    <div class="product-grid" id="productGrid">
+      <!-- Products will be injected by JavaScript -->
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" id="emptyState" style="display: none;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+      </svg>
+      <h3 data-i18n="empty_title">No products found</h3>
+      <p data-i18n="empty_subtitle">Be the first to submit a product!</p>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 VibeShip. <span data-i18n="footer_copyright">Built with Vibe Coding.</span></p>
+      <div class="footer-links">
+        <a href="/" data-i18n="nav_browse">Browse</a>
+        <a href="/submit.html" data-i18n="nav_submit">Submit</a>
+        <a href="https://github.com/zendong/vibeship" target="_blank" rel="noopener" data-i18n="footer_github">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/i18n.js"></script>
+  <script src="/js/main.js"></script>
+  <script>
+    // Initialize i18n after page load
+    document.addEventListener('DOMContentLoaded', () => {
+      window.i18n.init();
+      document.getElementById('langToggle').addEventListener('click', () => {
+        window.i18n.toggle();
+      });
+    });
+  </script>
+</body>
+</html>

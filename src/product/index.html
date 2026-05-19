@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product - VibeShip</title>
+  <meta name="description" content="Product details on VibeShip">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="/" class="nav-logo">
+        <img src="/logo.svg" alt="VibeShip">
+        <span data-i18n="nav_logo">VibeShip</span>
+      </a>
+      <div class="nav-links">
+        <a href="/" class="nav-link" data-i18n="nav_browse">Browse</a>
+        <a href="/submit.html" class="nav-link" data-i18n="nav_submit">Submit</a>
+        <button id="langToggle" class="nav-link lang-toggle">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+          <span data-i18n="nav_lang_toggle">EN</span>
+        </button>
+        <a href="https://github.com/zendong/vibeship" class="nav-link" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="detail-layout">
+      <!-- Back Link -->
+      <a href="/" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        <span data-i18n="back_to_products">Back to products</span>
+      </a>
+
+      <!-- Screenshot -->
+      <div class="detail-screenshot">
+        <img id="productScreenshot" src="" alt="Product screenshot">
+      </div>
+
+      <!-- Title & Tagline -->
+      <h1 class="detail-title" id="productName" data-i18n="loading_product">Loading...</h1>
+      <p class="detail-tagline" id="productTagline"></p>
+
+      <!-- Tags -->
+      <div class="detail-tags" id="productTags"></div>
+
+      <!-- Action Buttons -->
+      <div class="detail-actions" id="productActions"></div>
+
+      <!-- Description -->
+      <section class="detail-section">
+        <h3 data-i18n="about">About</h3>
+        <div id="productDescription" class="markdown-content"></div>
+      </section>
+
+      <!-- Benefits -->
+      <section class="detail-section" id="benefitsSection" style="display: none;">
+        <h3 data-i18n="benefits">Benefits</h3>
+        <p class="section-hint" data-i18n="benefits_hint">Each benefit item is stored as code + description.</p>
+        <div id="productBenefits"></div>
+      </section>
+
+      <!-- Contact -->
+      <section class="detail-section" id="contactSection">
+        <h3 data-i18n="contact">Contact</h3>
+        <ul class="contact-list" id="productContact"></ul>
+      </section>
+
+      <!-- Author -->
+      <section class="detail-section">
+        <h3 data-i18n="author">Author</h3>
+        <div class="author-card">
+          <div class="author-avatar" id="authorAvatar"></div>
+          <div class="author-info">
+            <h4 id="authorName">Author Name</h4>
+            <a id="authorGithub" href="#" target="_blank" rel="noopener" data-i18n="view_on_github">View on GitHub</a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 VibeShip. <span data-i18n="footer_copyright">Built with Vibe Coding.</span></p>
+      <div class="footer-links">
+        <a href="/" data-i18n="nav_browse">Browse</a>
+        <a href="/submit.html" data-i18n="nav_submit">Submit</a>
+        <a href="https://github.com/zendong/vibeship" target="_blank" rel="noopener" data-i18n="footer_github">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/i18n.js"></script>
+  <script src="/js/main.js"></script>
+  <script>
+    // Initialize i18n
+    document.addEventListener('DOMContentLoaded', () => {
+      window.i18n.init();
+      let currentProduct = null;
+      let currentProductId = null;
+
+      document.getElementById('langToggle').addEventListener('click', () => {
+        window.i18n.toggle();
+        if (currentProduct && currentProductId) {
+          renderProduct(currentProduct, currentProductId);
+        }
+      });
+
+      // Product page logic
+      const params = new URLSearchParams(window.location.search);
+      const productId = params.get('id');
+
+      if (!productId) {
+        window.location.href = '/';
+        return;
+      }
+
+      loadProduct(productId).then(({ product, id }) => {
+        currentProduct = product;
+        currentProductId = id;
+        renderProduct(currentProduct, currentProductId);
+      });
+    });
+
+    async function loadProduct(productId) {
+      const safeProductId = sanitizePathSegment(productId);
+      if (!safeProductId) {
+        window.location.href = '/';
+        return;
+      }
+
+      try {
+        const response = await fetch(`/products/${encodeURIComponent(safeProductId)}/product.json`);
+        if (!response.ok) {
+          throw new Error('Product not found');
+        }
+
+        const product = await response.json();
+        document.title = `${product.name || 'Product'} - VibeShip`;
+        return { product, id: safeProductId };
+      } catch (error) {
+        console.error('Error loading product:', error);
+        window.location.href = '/';
+        return { product: null, id: null };
+      }
+    }
+
+    function renderProduct(product, productId) {
+      if (!product || !productId) return;
+      const safeName = typeof product.name === 'string' ? product.name : 'Untitled Product';
+      const safeTagline = typeof product.tagline === 'string' ? product.tagline : '';
+      const safeCategory = typeof product.category === 'string' ? product.category : '其他';
+      const categoryLabel = getLocalizedCategory(safeCategory);
+
+      // Screenshot
+      const screenshotUrl = Array.isArray(product.screenshots) && product.screenshots[0]
+        ? (buildProductAssetUrl(productId, product.screenshots[0]) || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 9"%3E%3Crect fill="%23E0E7FF" width="16" height="9"/%3E%3C/svg%3E')
+        : 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 9"%3E%3Crect fill="%23E0E7FF" width="16" height="9"/%3E%3C/svg%3E';
+      document.getElementById('productScreenshot').src = screenshotUrl;
+      document.getElementById('productScreenshot').alt = safeName;
+
+      // Title & Tagline
+      document.getElementById('productName').textContent = safeName;
+      document.getElementById('productTagline').textContent = safeTagline;
+
+      // Tags
+      const tagsContainer = document.getElementById('productTags');
+      const safeTags = Array.isArray(product.tags) ? product.tags.filter((t) => typeof t === 'string') : [];
+      const categoryTag = `<span class="tag" style="background: var(--color-primary); color: white;">${escapeHtml(categoryLabel)}</span>`;
+      const otherTags = safeTags
+        .filter((t) => t !== safeCategory)
+        .map((t) => `<span class="tag">${escapeHtml(t)}</span>`)
+        .join('');
+      tagsContainer.innerHTML = categoryTag + otherTags;
+
+      // Action Buttons
+      const actionsContainer = document.getElementById('productActions');
+      let actionsHtml = '';
+      const safeProductLink = normalizeExternalUrl(product.links && product.links.product);
+      const safeGithubLink = normalizeExternalUrl(product.links && product.links.github);
+
+      if (safeProductLink) {
+        actionsHtml += `<a href="${escapeHtml(safeProductLink)}" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/>
+          </svg>
+          Visit
+        </a>`;
+      }
+
+      if (safeGithubLink) {
+        actionsHtml += `<a href="${escapeHtml(safeGithubLink)}" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+          GitHub
+        </a>`;
+      }
+
+      actionsContainer.innerHTML = actionsHtml;
+
+      // Description (basic markdown to HTML conversion)
+      const descContainer = document.getElementById('productDescription');
+      descContainer.innerHTML = simpleMarkdown(product.description || '');
+
+      // Benefits
+      if (product.benefits && product.benefits.length > 0) {
+        document.getElementById('benefitsSection').style.display = 'block';
+        const benefitsContainer = document.getElementById('productBenefits');
+        benefitsContainer.innerHTML = product.benefits.map(b => `
+          <div class="benefit-card">
+            <span class="benefit-code">${escapeHtml(b.code || '')}</span>
+            <span class="benefit-description">${escapeHtml(b.description || '')}</span>
+          </div>
+        `).join('');
+      }
+
+      // Contact
+      const contactContainer = document.getElementById('productContact');
+      let contactHtml = '';
+
+      if (product.contact) {
+        const safeGithub = normalizeExternalUrl(product.contact.github);
+        const safeTwitter = normalizeExternalUrl(product.contact.twitter);
+        const safeEmail = normalizeEmail(product.contact.email);
+
+        if (safeGithub) {
+          contactHtml += `<li>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            <a href="${escapeHtml(safeGithub)}" target="_blank" rel="noopener noreferrer">${escapeHtml(safeGithub)}</a>
+          </li>`;
+        }
+        if (safeTwitter) {
+          contactHtml += `<li>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            <a href="${escapeHtml(safeTwitter)}" target="_blank" rel="noopener noreferrer">${escapeHtml(safeTwitter)}</a>
+          </li>`;
+        }
+        if (safeEmail) {
+          const safeMailto = `mailto:${encodeURIComponent(safeEmail)}`;
+          contactHtml += `<li>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <path d="M22 6l-10 7L2 6"/>
+            </svg>
+            <a href="${safeMailto}">${escapeHtml(safeEmail)}</a>
+          </li>`;
+        }
+      }
+      contactContainer.innerHTML = contactHtml;
+
+      // Author
+      if (product.author) {
+        const authorName = typeof product.author.name === 'string' ? product.author.name : 'Unknown';
+        const safeAuthorGithub = normalizeExternalUrl(product.author.github);
+        document.getElementById('authorName').textContent = authorName;
+        if (safeAuthorGithub) {
+          document.getElementById('authorGithub').href = safeAuthorGithub;
+        document.getElementById('authorGithub').textContent = window.i18n.t('view_on_github');
+        document.getElementById('authorGithub').style.display = '';
+      } else {
+        document.getElementById('authorGithub').removeAttribute('href');
+        document.getElementById('authorGithub').textContent = window.i18n.t('github_not_provided');
+        document.getElementById('authorGithub').style.display = 'inline';
+      }
+    }
+
+    function getLocalizedCategory(category) {
+      const categoryMap = {
+        'AI工具': 'cat_ai',
+        '效率工具': 'cat_efficiency',
+        '开发框架': 'cat_framework',
+        'Chrome扩展': 'cat_chrome',
+        '移动应用': 'cat_mobile',
+        'SaaS': 'cat_saas',
+        '内容创作': 'cat_content',
+        '教育学习': 'cat_education',
+        '设计工具': 'cat_design',
+        '数据分析': 'cat_data',
+        '开源项目': 'cat_opensource',
+        '其他': 'cat_other'
+      };
+
+      const key = categoryMap[category];
+      return key ? window.i18n.t(key) : category;
+    }
+    }
+
+    function sanitizePathSegment(segment) {
+      if (typeof segment !== 'string') return '';
+      const trimmed = segment.trim();
+      if (!trimmed) return '';
+      return /^[a-zA-Z0-9._-]+$/.test(trimmed) ? trimmed : '';
+    }
+
+    function buildProductAssetUrl(productId, assetName) {
+      const safeProductId = sanitizePathSegment(productId);
+      const safeAssetName = sanitizePathSegment(assetName);
+      if (!safeProductId || !safeAssetName) return '';
+      return `/products/${encodeURIComponent(safeProductId)}/${encodeURIComponent(safeAssetName)}`;
+    }
+
+    function normalizeExternalUrl(url) {
+      if (typeof url !== 'string') return '';
+      const trimmed = url.trim();
+      if (!trimmed) return '';
+      try {
+        const parsed = new URL(trimmed);
+        if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') return '';
+        return parsed.toString();
+      } catch (error) {
+        return '';
+      }
+    }
+
+    function normalizeEmail(email) {
+      if (typeof email !== 'string') return '';
+      const trimmed = email.trim();
+      if (!trimmed) return '';
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(trimmed) ? trimmed : '';
+    }
+
+    function escapeHtml(text) {
+      if (typeof text !== 'string') return '';
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    // Simple markdown parser (supports basic formatting)
+    function simpleMarkdown(text) {
+      if (!text) return '';
+
+      const safe = escapeHtml(String(text));
+
+      return safe
+        // Headers
+        .replace(/^### (.+)$/gm, '<h4>$1</h4>')
+        .replace(/^## (.+)$/gm, '<h3>$1</h3>')
+        .replace(/^# (.+)$/gm, '<h2>$1</h2>')
+        // Bold
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        // Italic
+        .replace(/\*(.+?)\*/g, '<em>$1</em>')
+        // Code
+        .replace(/`(.+?)`/g, '<code>$1</code>')
+        // Lists
+        .replace(/^- (.+)$/gm, '<li>$1</li>')
+        .replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>')
+        // Line breaks
+        .replace(/\n\n/g, '</p><p>')
+        .replace(/\n/g, '<br>');
+    }
+  </script>
+</body>
+</html>

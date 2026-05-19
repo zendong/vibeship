@@ -1,0 +1,26 @@
+{
+  "name": "Pracmo 璞奇",
+  "tagline": "AI 驱动的沉浸式练习平台，用 Vibe Coding 开发的产品",
+  "description": "## 什么是 Pracmo\n\nPracmo（璞奇）是一个 AI 驱动的沉浸式练习平台，帮助用户在真实场景中提升技能。\n\n## 核心功能\n\n- **流炼 (Flow Practice)** - 通过模拟真实对话场景进行技能练习\n- **多端支持** - Web、iOS、Android、Chrome 扩展全部支持\n- **AI 辅助** - 全程 AI 反馈，帮助你快速改进\n- **个性化学习** - 根据你的水平定制练习内容\n\n## 产品家族\n\n- **Web 应用** - React + Vite + TypeScript\n- **移动应用** - Flutter (iOS/Android)\n- **Chrome 扩展** - 浏览器侧边栏练习\n\n## 技术栈\n\n- 前端：React, Flutter, TypeScript\n- 后端：Go (Gin, GORM)\n- 数据库：MySQL/PostgreSQL\n- 缓存：Redis\n- 消息队列：RabbitMQ",
+  "category": "AI工具",
+  "tags": ["AI", "学习平台", "Vibe Coding", "React", "Flutter"],
+  "screenshots": ["screenshot.svg"],
+  "links": {
+    "product": "https://pracmo.com",
+    "github": "https://github.com/evertrain/pracmo-website"
+  },
+  "contact": {
+    "github": "https://github.com/evertrain",
+    "twitter": "https://twitter.com/pracmo"
+  },
+  "benefits": [
+    {
+      "code": "FIRST10",
+      "description": "新用户首月 10% off"
+    }
+  ],
+  "author": {
+    "name": "Pracmo Team",
+    "github": "https://github.com/evertrain"
+  }
+}
